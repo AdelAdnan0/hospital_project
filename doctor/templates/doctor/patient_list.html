@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's Patient List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"></head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">Hospital System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/reception">Reception</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/doctor">Doctor</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h1 class="text-center text-primary">Doctor's Patient List</h1>
+
+        <ul class="list-group mt-4">
+            {% for patient in patients %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ patient.name }}</strong> 
+                        <span class="text-muted">({{ patient.age }} years old, {{ patient.gender }})</span>
+                    </div>
+                    <div>
+                        <a href="{% url 'add_record' patient.id %}" class="btn btn-success btn-sm me-2">Add Medical Record</a>
+                        <a href="{% url 'patient_records' patient.id %}" class="btn btn-info btn-sm">View Records</a>
+                    </div>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-danger">No patients available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

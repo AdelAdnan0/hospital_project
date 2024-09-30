@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient List</title>
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">Hospital System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/reception">Reception</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/doctor">Doctor</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-primary text-center">Registered Patients</h1>
+
+        <form method="get" action="{% url 'patient_list' %}" class="d-flex justify-content-center my-4">
+            <select name="gender" class="form-select w-25">
+                <option value="" {% if not request.GET.gender %}selected{% endif %}>All</option>
+                <option value="M" {% if request.GET.gender == "M" %}selected{% endif %}>Male</option>
+                <option value="F" {% if request.GET.gender == "F" %}selected{% endif %}>Female</option>
+            </select>
+            <button type="submit" class="btn btn-primary ms-2">Filter</button>
+        </form>
+        
+        
+
+        <a href="{% url 'register_patient' %}" class="btn btn-success mb-3">Register New Patient</a>
+
+        <ul class="list-group">
+            {% for patient in patients %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ patient.name }}</strong> 
+                        ({{ patient.age }} years old, {{ patient.gender|capfirst }})
+                    </div>
+                    <div>
+                        <a href="{% url 'edit_patient' patient.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'delete_patient' patient.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if not patients %}
+            <p class="text-center text-muted">No patients found.</p>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
