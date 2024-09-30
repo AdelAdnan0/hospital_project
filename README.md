@@ -6,7 +6,7 @@ This project is a Hospital Management System built using Django. It contains two
 1.  **Reception**: Responsible for patient management (adding, updating, and deleting patient information).
 2.  **Doctor**: Manages patient diagnoses and medical records (adding, viewing, editing, and deleting medical records).
 
-English Version
+English
 ---------------
 
 ### Features
@@ -137,7 +137,7 @@ Copy code
 
 * * * * *
 
-النسخة العربية
+العربية
 --------------
 
 ### الميزات
